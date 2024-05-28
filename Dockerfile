@@ -1,3 +1,10 @@
+# !!! Atention !!!
+# This is not an ideal Docker setup.
+# Ideally I'd use separate services for each component (PHP-FPM, Nginx, Redis, etc.),
+# but as this is just a simple and quick demo deployed on DO App platform,
+# I used everything inside one container (leveraging Supervisor), apart from the database.
+# todo: Setup Redis on a separate DO Droplet.
+
 # Use the official PHP image as the base image
 FROM php:8.3-fpm
 
@@ -23,10 +30,14 @@ RUN apt-get update && apt-get install -y \
     npm \
     nginx \
     supervisor \
+    redis-server \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
+
+# Install Redis extension
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -48,8 +59,14 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Set environment variables
-ENV DB_HOST=host.docker.internal
+# ENV DB_HOST=host.docker.internal
+
+# Optimize Laravel
+RUN php artisan optimize
+RUN php artisan config:cache
 
 # Expose port 8080 and start supervisord
 EXPOSE 8080
+
+# Start everything using Supervisor
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
