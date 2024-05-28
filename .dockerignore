@@ -1,0 +1,59 @@
+# Node modules and other dependencies
+node_modules
+vendor
+
+# Laravel storage and logs
+storage/*.key
+storage/logs
+storage/app/public
+storage/framework/cache/data
+storage/framework/sessions
+storage/framework/views
+
+# Environment files
+# .env
+# .env.*.local
+
+# Development and local files
+.idea
+.vscode
+*.log
+*.swp
+*.swo
+.DS_Store
+
+# Docker files
+docker-compose.yml
+.dockerignore
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Composer files
+composer.lock
+
+# NPM/Yarn files
+yarn.lock
+package-lock.json
+
+# Coverage files
+coverage
+.cache
+
+# Build files
+public/build
+public/hot
+public/storage
+public/mix-manifest.json
+
+# CI/CD files
+.github
+.gitlab-ci.yml
+
+# Miscellaneous
+tests
+phpunit.xml
+phpunit.xml.dist
+phpunit.result.cache
