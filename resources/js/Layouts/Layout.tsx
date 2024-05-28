@@ -1,21 +1,25 @@
+import { PropsWithChildren } from "react";
 import { Link, Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 
-export default function Welcome({
+interface LayoutProps extends PageProps {
+  title: string;
+}
+
+export default function Layout({
+  title,
   auth,
-  laravelVersion,
-  phpVersion,
-  articles,
-}: PageProps<{ laravelVersion: string; phpVersion: string; articles: any[] }>) {
+  children,
+}: PropsWithChildren<LayoutProps>) {
   return (
     <>
-      <Head title="Welcome" />
-      <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 flex flex-col items-center justify-center ">
+      <Head title={title} />
+      <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 flex flex-col items-center justify-center">
         <div className="relative min-h-screen w-full max-w-2xl px-6 lg:max-w-5xl selection:bg-[#FF2D20] selection:text-white">
           <header className="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-            <div className="flex lg:justify-center lg:col-start-2">
+            <h1 className="flex items-center lg:justify-center lg:col-start-2 text-white text-3xl font-bold">
               <svg
-                className="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]"
+                className="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20] me-3"
                 viewBox="0 0 62 65"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +29,8 @@ export default function Welcome({
                   fill="currentColor"
                 />
               </svg>
-            </div>
+              Blog
+            </h1>
             <nav className="-mx-3 flex flex-1 justify-end">
               {auth.user ? (
                 <Link
@@ -52,51 +57,11 @@ export default function Welcome({
               )}
             </nav>
           </header>
-
-          <main className="mt-6">
-            <div className="flex flex-col gap-6">
-              {articles.map((article) => (
-                <article
-                  key={article.id}
-                  className="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-                >
-                  <div className="pt-3 sm:pt-5">
-                    <h2 className="text-xl font-semibold text-black dark:text-white">
-                      {article.title}
-                    </h2>
-
-                    <p className="mt-4 text-sm/relaxed">{article.body}</p>
-                  </div>
-                  <div className="flex items-center justify-end mt-6">
-                    <Link
-                      href="#"
-                      className="me-3 text-[#FF2D20] hover:text-[#FF2D20] dark:text-[#FF2D20] dark:hover:text-[#FF2D20]"
-                    >
-                      Read more
-                    </Link>
-                    <svg
-                      className="size-6 shrink-0 self-center stroke-[#FF2D20]"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                      />
-                    </svg>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </main>
-
+          <main className="mt-6">{children}</main>
           <footer className="py-16 flex justify-between text-sm text-black dark:text-white/70">
             <div>&copy; {new Date().getFullYear()} KrisOzolins</div>
             <div>
-              Laravel v{laravelVersion} (PHP v{phpVersion})
+              Laravel v{1} (PHP v{1})
             </div>
           </footer>
         </div>

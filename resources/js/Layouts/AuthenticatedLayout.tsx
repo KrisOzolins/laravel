@@ -28,10 +28,16 @@ export default function Authenticated({
 
               <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <NavLink
-                  href={route("dashboard")}
-                  active={route().current("dashboard")}
+                  href={route("admin.dashboard")}
+                  active={route().current("admin.dashboard")}
                 >
                   Dashboard
+                </NavLink>
+                <NavLink
+                  href={route("admin.articles.index")}
+                  active={route().current("admin.articles.index")}
+                >
+                  Articles
                 </NavLink>
               </div>
             </div>
@@ -64,7 +70,7 @@ export default function Authenticated({
                   </Dropdown.Trigger>
 
                   <Dropdown.Content>
-                    <Dropdown.Link href={route("profile.edit")}>
+                    <Dropdown.Link href={route("admin.profile.edit")}>
                       Profile
                     </Dropdown.Link>
                     <Dropdown.Link
@@ -125,10 +131,16 @@ export default function Authenticated({
         >
           <div className="pt-2 pb-3 space-y-1">
             <ResponsiveNavLink
-              href={route("dashboard")}
-              active={route().current("dashboard")}
+              href={route("admin.dashboard")}
+              active={route().current("admin.dashboard")}
             >
               Dashboard
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("admin.articles.index")}
+              active={route().current("admin.articles.index")}
+            >
+              Articles
             </ResponsiveNavLink>
           </div>
 
@@ -143,7 +155,7 @@ export default function Authenticated({
             </div>
 
             <div className="mt-3 space-y-1">
-              <ResponsiveNavLink href={route("profile.edit")}>
+              <ResponsiveNavLink href={route("admin.profile.edit")}>
                 Profile
               </ResponsiveNavLink>
               <ResponsiveNavLink
