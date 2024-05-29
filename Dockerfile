@@ -61,9 +61,10 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 # Set environment variables
 # ENV DB_HOST=host.docker.internal
 
-# Optimize Laravel
-RUN php artisan optimize
-RUN php artisan config:cache
+# Add a script to be executed every time the container starts.
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
 # Expose port 8080 and start supervisord
 EXPOSE 8080
